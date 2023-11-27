@@ -1,0 +1,38 @@
+---
+import MenuItem from "./MenuItem.astro";
+import HomeIcon from "../icons/Home.astro";
+import UserIcon from "../icons/User.astro";
+import LibraryIcon from "../icons/Library.astro";
+import SettingsIcon from "../icons/Settings.astro";
+---
+
+<nav class="flex flex-col justify-between min-h-full border-r-2 border-zinc-200">
+        <div class="">
+            <MenuItem href="/">
+                <HomeIcon />
+                Dashboard
+            </MenuItem>
+            <MenuItem href="/users">
+                <UserIcon />
+                Users
+            </MenuItem>
+            <MenuItem href="/rules">
+                <LibraryIcon />
+                Rules
+            </MenuItem>
+            <MenuItem href="/actions">
+                <LibraryIcon />
+                Actions
+            </MenuItem>
+            <MenuItem href="/roles">
+                <LibraryIcon />
+                Roles
+            </MenuItem>
+        </div>
+        <div class="">
+            <MenuItem href="/settings">
+                <SettingsIcon />
+                Settings
+            </MenuItem>
+        </div>    
+</nav>

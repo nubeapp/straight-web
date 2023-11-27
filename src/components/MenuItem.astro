@@ -1,0 +1,12 @@
+---
+import type { string } from 'astro/zod';
+interface Props {
+    href?: string;
+}
+
+const { href } = Astro.props
+---
+
+<a href={href} class="flex gap-4 text-zinc-800 hover:text-blue-600 items-center py-3 px-5 font-small text-sm transition">
+    <slot/>
+</a>
