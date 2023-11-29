@@ -1,14 +1,29 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { getUsersByOrganizationId } from '../api/user-service.js';
+import type { User } from '../../models/user';
+import Searcher from '../../components/Searcher.astro';
+
+// const users: User[] = await getUsersByOrganizationId();
 ---
 
 <Layout title="Straight">
-    <div class="transition-all relative duration-1000 ">
+    <div class="transition-all relative duration-1000">
         <!-- <PageHeader /> -->
 
-        <div class="relative z-10 px-6 pt-10">
+        <div class="relative z-10 rounded-lg ml-2">
             <!-- <Greetings/> -->
-            <p>Users</p>
+            <header class="p-4">
+                <h1 class="text-xl font-medium text-zinc-700 py-6">User Roles</h1>
+                <div class="w-full flex flex-row justify-between">
+                    <div class="flex">
+                        <Searcher />
+                        <Searcher />
+                    </div>
+                    <Searcher />
+                </div>
+                
+            </header>
         </div>
     </div>
 </Layout>

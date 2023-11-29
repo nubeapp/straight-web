@@ -9,7 +9,7 @@ const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="bg-blue-50/50">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content="Astro description" />
@@ -19,7 +19,7 @@ const { title } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body>
-		<div id="app" class="relative h-screen p-2">
+		<div id="app" class="relative h-screen px-2 py-4">
 			<header class="[grid-area:logo] flex flex-row justify-center items-center min-h-[100px] border-r-2 border-zinc-200">
 				<p class="text-center text-blue-600 text-4xl italic font-medium">
 					straight<span class="text-zinc-900">.</span>
@@ -29,7 +29,7 @@ const { title } = Astro.props;
 				<AsideMenu />
 			</aside>
 			
-			<main class="[grid-area:main] overflow-y-auto">
+			<main class="[grid-area:main] overflow-y-auto ml-4 mr-2 rounded-lg bg-blue-200/10 shadow-sm">
 				<slot />
 			</main>
 		</div>
@@ -47,8 +47,7 @@ const { title } = Astro.props;
 </style>
 <style is:global>
 	html {
-		font-family: system-ui, sans-serif;
-		background: #f7f7f7;
+		font-family: "CircularStd", system-ui, sans-serif;
 		background-size: 224px;
 	}
 	@font-face {
