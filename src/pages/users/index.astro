@@ -2,28 +2,34 @@
 import Layout from '../../layouts/Layout.astro';
 import { getUsersByOrganizationId } from '../api/user-service.js';
 import type { User } from '../../models/user';
-import Searcher from '../../components/Searcher.astro';
+import UserSearchInput from '../../components/UsersSearchInput.astro';
+import ElementsIndicator from '../../components/ElementsIndicator.astro';
+import UsersTable from '../../components/UsersTable.astro';
+import AddUserButton from '../../components/AddUserButton.astro';
 
-// const users: User[] = await getUsersByOrganizationId();
+const users: User[] = await getUsersByOrganizationId();
 ---
 
 <Layout title="Straight">
     <div class="transition-all relative duration-1000">
         <!-- <PageHeader /> -->
 
-        <div class="relative z-10 rounded-lg ml-2">
+        <div class="relative z-10 rounded-lg ml-2 overflow-y-auto p-4">
             <!-- <Greetings/> -->
-            <header class="p-4">
-                <h1 class="text-xl font-medium text-zinc-700 py-6">User Roles</h1>
-                <div class="w-full flex flex-row justify-between">
-                    <div class="flex">
-                        <Searcher />
-                        <Searcher />
+            <header class="py-4">
+                <h1 class="text-2xl font-medium text-zinc-700 py-6 px-4">User Roles</h1>
+                <div class="w-full flex flex-row justify-between items-center">
+                    <div class="flex flex-row gap-4 h-auto">
+                        <UserSearchInput />
+                        <AddUserButton />
                     </div>
-                    <Searcher />
+                    <ElementsIndicator />
                 </div>
                 
             </header>
+            <body class="overflow-y-auto">
+                <UsersTable users={users}/>
+            </body>
         </div>
     </div>
 </Layout>

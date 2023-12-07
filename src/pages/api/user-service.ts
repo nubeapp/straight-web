@@ -13,7 +13,6 @@ export async function getUsersByOrganizationId() {
 
         return users
     } catch (error) {
-        // Handle the error here
         console.error('Error in getUsersByOrganizationId:', error);
         throw error;
     }

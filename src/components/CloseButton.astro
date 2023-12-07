@@ -1,0 +1,18 @@
+---
+const {id, customClass, onclick } = Astro.props;
+---
+<div class=`${customClass}`>
+  <button
+    aria-label="Close"
+    id={id ? id : null}
+    onclick={onclick ? onclick : null}
+    class="w-10 h-10 rounded-full bg-white relative shadow"
+  >
+    <span
+      class="w-5 h-1 top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-AtomicTangerine-900 rounded-full block rotate-45 absolute"
+    ></span>
+    <span
+      class="w-5 h-1 top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-AtomicTangerine-900 rounded-full block -rotate-45 absolute"
+    ></span>
+  </button>
+</div>

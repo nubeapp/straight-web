@@ -1,0 +1,14 @@
+---
+import EditIcon from '../icons/Edit.astro'
+import DeleteIcon from '../icons/Delete.astro'
+interface Props {
+    classname?: string
+    type: 'Edit' | 'Delete'
+}
+
+const { classname, type } = Astro.props
+---
+
+<div class=`${classname} rounded-md p-2 border-2`>
+    {type === 'Edit' ? <EditIcon/> : <DeleteIcon/>}
+</div>

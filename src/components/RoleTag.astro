@@ -1,0 +1,13 @@
+---
+interface Props {
+    label: string
+    classname?: string
+}
+
+const {label, classname} = Astro.props
+
+---
+
+<span id="badge-dismiss-default" class=`inline-flex items-center px-2 py-1 me-2 text-sm font-medium rounded ${classname}`>
+    {label}
+</span>

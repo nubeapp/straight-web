@@ -1,0 +1,16 @@
+---
+import AddIcon from '../icons/Add.astro'
+// import AddUserDialog from './AddUserDialog.astro';
+import {AddUserDialog} from './AddUserDialog';
+---
+
+<button 
+    onclick={`window.dialog.showModal()`}
+    class="flex flex-row gap-2 items-center justify-center py-2 px-4 font-small dark:text-blue-500 max-w-[200px] min-h-[40px] h-full block bg-blue-600 text-white hover:bg-blue-700 text-sm rounded-md ">
+    <AddIcon />
+    <div>
+        Add User
+    </div>
+</button>
+
+<AddUserDialog client:visible/>
