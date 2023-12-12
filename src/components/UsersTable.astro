@@ -1,9 +1,8 @@
 ---
 import type { User } from '../models/user';
-import RoleTag from './RoleTag.astro';
-import StatusTag from './StatusTag.astro';
-import EditIcon from '../icons/Edit.astro';
-import IconButton from './IconButton.astro';
+import {RoleTag} from './RoleTag.tsx';
+import {StatusTag} from './StatusTag.tsx';
+import {IconButton} from './IconButton.tsx';
 
 interface Props {
     users: User[];
@@ -82,3 +81,4 @@ const {users} = Astro.props
         </tbody>
     </table>
 </div>
+./RoleTag.tsx./StatusTag.tsx/index.ts./IconButton.tsx/index.ts

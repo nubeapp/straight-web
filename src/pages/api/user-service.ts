@@ -1,8 +1,8 @@
 import type { User } from "../../models/user";
 
-export async function getUsersByOrganizationId() {
+export async function getUsersByOrganizationId({ id }: { id: number }) {
     try {
-        const apiUrl = 'http://localhost:8000/api/users/organization/1';
+        const apiUrl = `http://localhost:8000/api/users/organization/${id}`;
         const response = await fetch(apiUrl);
 
         if (!response.ok) {
