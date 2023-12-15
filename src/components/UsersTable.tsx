@@ -7,13 +7,59 @@ import { useOrganizationStore } from '../store/organizationStore.js';
 // export function UsersTable({ users }: { users: User[] }) {
 export function UsersTable() {
 
-    const { currentOrganization } = useOrganizationStore(state => state);
+    const currentOrganization = useOrganizationStore(state => state.currentOrganization);
+    const isLoading = useOrganizationStore(state => state.isLoading);
     const users = currentOrganization.users;
-    console.log(users);
 
-    if (!currentOrganization.organization || !users) {
-        // Handle the case when organization or users are not available yet
-        return <div>Loading...</div>; // You can replace this with your loading indicator or message
+    if (isLoading || !currentOrganization.organization) {
+        return (
+
+            <div role="status" className="p-4 space-y-4 divide-y divide-gray-200 rounded animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700">
+                <div className="flex items-center justify-between">
+                    <div>
+                        <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+                        <div className="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                    </div>
+                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+                </div>
+                <div className="flex items-center justify-between pt-4">
+                    <div>
+                        <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+                        <div className="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                    </div>
+                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+                </div>
+                <div className="flex items-center justify-between pt-4">
+                    <div>
+                        <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+                        <div className="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                    </div>
+                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+                </div>
+                <div className="flex items-center justify-between pt-4">
+                    <div>
+                        <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+                        <div className="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                    </div>
+                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+                </div>
+                <div className="flex items-center justify-between pt-4">
+                    <div>
+                        <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+                        <div className="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                    </div>
+                    <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+                </div>
+                <span className="sr-only">Loading...</span>
+            </div>
+
+        )
+    }
+
+    if (!users || users.length === 0) {
+        return (
+            <div className="flex flex-row h-full justify-center items-start mt-10 text-zinc-700 italic text-xl">No users found</div>
+        )
     }
 
     return (
