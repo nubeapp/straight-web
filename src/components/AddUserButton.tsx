@@ -1,12 +1,7 @@
 import { useState } from 'react';
 import { AddUserDialog } from './AddUserDialog';
 import { useOrganizationStore } from '../store/organizationStore';
-
-export const Add = () => (
-    <svg className="w-[12px] h-[12px] text-white-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
-        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 1v16M1 9h16" />
-    </svg>
-)
+import { Add } from '../icons/Icons';
 
 export function AddUserButton() {
     const [isDialogVisible, setDialogVisible] = useState(false);

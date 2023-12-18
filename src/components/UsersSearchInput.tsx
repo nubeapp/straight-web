@@ -1,20 +1,12 @@
-import { useOrganizationStore } from '../store/organizationStore.js';
-
-
-export const Search = () => (
-  <svg
-    role="img"
-    height="18"
-    width="18"
-    aria-hidden="true"
-    viewBox="0 0 24 24"
-    fill="#D1D1D1"
-  ><path
-    d="M10.533 1.279c-5.18 0-9.407 4.14-9.407 9.279s4.226 9.279 9.407 9.279c2.234 0 4.29-.77 5.907-2.058l4.353 4.353a1 1 0 1 0 1.414-1.414l-4.344-4.344a9.157 9.157 0 0 0 2.077-5.816c0-5.14-4.226-9.28-9.407-9.28zm-7.407 9.279c0-4.006 3.302-7.28 7.407-7.28s7.407 3.274 7.407 7.28-3.302 7.279-7.407 7.279-7.407-3.273-7.407-7.28z"
-  ></path></svg>
-)
+import { useState } from 'react';
+import { Search } from '../icons/Icons';
+import { useQueryStore } from '../store/queryStore.ts';
+import { useOrganizationStore } from '../store/organizationStore.ts';
 
 export function UserSearchInput() {
+
+  const searchQuery = useQueryStore(state => state.searchQuery);
+  const setSearchQuery = useQueryStore(state => state.setSearchQuery);
 
   const currentOrganization = useOrganizationStore(state => state.currentOrganization);
   const isLoading = useOrganizationStore(state => state.isLoading);
@@ -38,7 +30,8 @@ export function UserSearchInput() {
         id="search"
         className="block w-full max-w-[200px] min-h-[40px] pl-11 text-sm text-zinc-700 border-[1.5px] border-zinc-400/30 rounded-lg bg-transparent focus:outline-none focus:ring-blue-500 focus:border-blue-500"
         placeholder="Quick search..."
-        value=""
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
       />
     </div>
   )

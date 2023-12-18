@@ -2,6 +2,17 @@ import { useState, useEffect } from 'react';
 import type { Organization } from '../models/organization';
 import { useOrganizationStore } from '../store/organizationStore';
 import { getUsersByOrganizationId } from '../pages/api/user-service';
+import type { User } from '../models/user';
+
+type CacheItem = {
+  organization: Organization | undefined;
+  users: User[] | null;
+  timestamp: number;
+};
+
+const cache: Record<number, CacheItem> = {};
+
+const CACHE_EXPIRATION_TIME = 5 * 60 * 1000;
 
 export function OrganizationDropdown({ organizations }: { organizations: Organization[] }) {
   const [open, setOpen] = useState(false);
@@ -11,24 +22,35 @@ export function OrganizationDropdown({ organizations }: { organizations: Organiz
   const isLoading = useOrganizationStore(state => state.isLoading);
 
   useEffect(() => {
-    const fetchData = async () => {
-      if (currentOrganization.organization === null) {
-        const users = await getUsersByOrganizationId({ id: organizations[0].id });
-        const organization = organizations[0]
-        console.log(organization);
-        setCurrentOrganization(organization, users);
+    const fetchData = async (organizationId: number) => {
+      try {
+        setLoading(true);
+
+        // Check if data is in the cache and not expired
+        if (cache[organizationId] && Date.now() - cache[organizationId].timestamp < CACHE_EXPIRATION_TIME) {
+          const { organization, users } = cache[organizationId];
+          setCurrentOrganization(organization!, users!);
+        } else {
+          // If not in the cache or expired, fetch data from the API
+          const users = await getUsersByOrganizationId({ id: organizationId });
+          const organization = organizations.find(org => org.id === organizationId);
+
+          // Update the cache with new data and timestamp
+          cache[organizationId] = { organization, users, timestamp: Date.now() };
+
+          // Set the current organization
+          setCurrentOrganization(organization!, users);
+        }
+      } finally {
+        setLoading(false);
       }
     };
 
-    // const delay = 2000;
-    // const timeoutId = setTimeout(() => {
-    //   fetchData();
-    // }, delay);
-
-    // return () => clearTimeout(timeoutId);
-    fetchData();
-  }, [currentOrganization, setCurrentOrganization, organizations]);
-
+    // Fetch data for the current organization on component mount
+    if (currentOrganization.organization === null && organizations.length > 0) {
+      fetchData(organizations[0].id);
+    }
+  }, [currentOrganization, setCurrentOrganization, setLoading, organizations]);
 
   const handleOpen = () => {
     setOpen(!open);
@@ -37,10 +59,26 @@ export function OrganizationDropdown({ organizations }: { organizations: Organiz
   const handleMenu = async (selectedOption: Organization) => {
     setOpen(false);
     setLoading(true);
+
     try {
-      const selectedOrganization = organizations.find((organization: Organization) => organization.id === selectedOption.id);
-      const users = await getUsersByOrganizationId({ id: selectedOption.id });
-      setCurrentOrganization(selectedOrganization as Organization, users);
+      const selectedOrganization = organizations.find(
+        (organization: Organization) => organization.id === selectedOption.id
+      );
+
+      // Use the cache to get data for the selected organization
+      if (cache[selectedOption.id] && Date.now() - cache[selectedOption.id].timestamp < CACHE_EXPIRATION_TIME) {
+        const { organization, users } = cache[selectedOption.id];
+        setCurrentOrganization(organization!, users!);
+      } else {
+        // If not in the cache or expired, fetch data from the API
+        const users = await getUsersByOrganizationId({ id: selectedOption.id });
+
+        // Update the cache with new data and timestamp
+        cache[selectedOption.id] = { organization: selectedOrganization, users, timestamp: Date.now() };
+
+        // Set the current organization
+        setCurrentOrganization(selectedOrganization as Organization, users);
+      }
     } finally {
       setLoading(false);
     }

@@ -3,12 +3,17 @@ import { RoleTag } from './RoleTag.tsx';
 import { StatusTag } from './StatusTag.tsx';
 import { IconButton } from './IconButton.tsx';
 import { useOrganizationStore } from '../store/organizationStore.js';
+import { useQueryStore } from '../store/queryStore.ts';
 
 export function UsersTable() {
-
+    const searchQuery = useQueryStore(state => state.searchQuery);
     const currentOrganization = useOrganizationStore(state => state.currentOrganization);
     const isLoading = useOrganizationStore(state => state.isLoading);
     const users = currentOrganization.users;
+
+    const filteredUsers = users.filter((user) =>
+        `${user.name} ${user.surname}`.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     if (isLoading || !currentOrganization.organization) {
         return (
@@ -55,7 +60,7 @@ export function UsersTable() {
         )
     }
 
-    if (!users || users.length === 0) {
+    if (!users || users.length === 0 || !filteredUsers || filteredUsers.length === 0) {
         return (
             <div className="flex flex-row h-full justify-center items-start mt-10 text-zinc-700 italic text-xl">No users found</div>
         )
@@ -88,7 +93,7 @@ export function UsersTable() {
                 </thead>
                 <tbody>
                     {
-                        users.map((user: User) => (
+                        filteredUsers.map((user: User) => (
                             <tr key={user.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 hover:cursor-pointer">
                                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {user.name} {user.surname}
