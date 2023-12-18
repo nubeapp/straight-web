@@ -8,6 +8,7 @@ export function OrganizationDropdown({ organizations }: { organizations: Organiz
   const currentOrganization = useOrganizationStore(state => state.currentOrganization);
   const setCurrentOrganization = useOrganizationStore(state => state.setCurrentOrganization);
   const setLoading = useOrganizationStore(state => state.setLoading);
+  const isLoading = useOrganizationStore(state => state.isLoading);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,14 +20,13 @@ export function OrganizationDropdown({ organizations }: { organizations: Organiz
       }
     };
 
-    // Delay execution by 2 seconds
-    const delay = 2000; // 2000 milliseconds = 2 seconds
-    const timeoutId = setTimeout(() => {
-      fetchData();
-    }, delay);
+    // const delay = 2000;
+    // const timeoutId = setTimeout(() => {
+    //   fetchData();
+    // }, delay);
 
-    // Clean up the timeout to avoid unnecessary side effects
-    return () => clearTimeout(timeoutId);
+    // return () => clearTimeout(timeoutId);
+    fetchData();
   }, [currentOrganization, setCurrentOrganization, organizations]);
 
 
@@ -45,6 +45,18 @@ export function OrganizationDropdown({ organizations }: { organizations: Organiz
       setLoading(false);
     }
   };
+
+  if (isLoading || !currentOrganization.organization) {
+    return (
+      <div role="status" className="my-5 rounded animate-pulse dark:divide-gray-700 dark:border-gray-700">
+        <div className="flex items-center justify-center gap-6">
+          <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24"></div>
+          <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-12"></div>
+        </div>
+        <span className="sr-only">Loading...</span>
+      </div>
+    )
+  }
 
   return (
     <div className="relative z-50">

@@ -1,20 +1,17 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import type { User } from '../../models/user';
-import UserSearchInput from '../../components/UsersSearchInput.astro';
-import ElementsIndicator from '../../components/ElementsIndicator.astro';
+import Layout from "../../layouts/Layout.astro";
+import type { User } from "../../models/user";
+import { UserSearchInput } from "../../components/UsersSearchInput.tsx";
+import { TablePaginationInfo } from "../../components/TablePaginationInfo.tsx";
 // import UsersTable from '../../components/UsersTable.astro';
-import { UsersTable } from '../../components/UsersTable.tsx';
-import AddUserButton from '../../components/AddUserButton.astro';
-import { OrganizationDropdown } from '../../components/OrganizationDropdown';
-import type { Organization } from '../../models/organization';
-import { getOrganizations } from '../api/organization-service';
-import { useOrganizationStore } from '../../store/organizationStore.js';
-import { getUsersByOrganizationId } from '../api/user-service';
-
+import { UsersTable } from "../../components/UsersTable.tsx";
+// import AddUserButton from '../../components/AddUserButton.astro';
+import { AddUserButton } from "../../components/AddUserButton";
+import { OrganizationDropdown } from "../../components/OrganizationDropdown";
+import type { Organization } from "../../models/organization";
+import { getOrganizations } from "../api/organization-service";
 
 const organizations: Organization[] = await getOrganizations();
-const users: User[] = await getUsersByOrganizationId({id: 1});
 ---
 
 <Layout title="Straight">
@@ -23,24 +20,26 @@ const users: User[] = await getUsersByOrganizationId({id: 1});
             <header class="py-4">
                 <!-- <h1 class="text-2xl font-medium text-zinc-700 py-6">Alvaro's Organization</h1> -->
                 <div class="flex flex-row">
-                    <OrganizationDropdown organizations={organizations} client:visible/>
+                    <OrganizationDropdown
+                        organizations={organizations}
+                        client:visible
+                    />
                 </div>
                 <div class="w-full flex flex-row justify-between items-center">
                     <div class="flex flex-row gap-4 h-auto">
-                        <UserSearchInput />
-                        <AddUserButton />
+                        <UserSearchInput client:visible/>
+                        <AddUserButton client:visible />
+                        <!-- <AddUserButton /> -->
                     </div>
-                    <ElementsIndicator />
+                    <TablePaginationInfo client:visible/>
                 </div>
-                
             </header>
             <body class="overflow-y-auto">
-                <UsersTable client:visible/>
+                <UsersTable client:visible />
             </body>
-            
         </div>
     </div>
 </Layout>
 
-<style>
-</style>
+<style
+></style>

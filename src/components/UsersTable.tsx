@@ -4,7 +4,6 @@ import { StatusTag } from './StatusTag.tsx';
 import { IconButton } from './IconButton.tsx';
 import { useOrganizationStore } from '../store/organizationStore.js';
 
-// export function UsersTable({ users }: { users: User[] }) {
 export function UsersTable() {
 
     const currentOrganization = useOrganizationStore(state => state.currentOrganization);
@@ -14,7 +13,7 @@ export function UsersTable() {
     if (isLoading || !currentOrganization.organization) {
         return (
 
-            <div role="status" className="p-4 space-y-4 divide-y divide-gray-200 rounded animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700">
+            <div role="status" className="p-y-4 space-y-4 divide-y divide-gray-200 rounded animate-pulse dark:divide-gray-700 md:p-y-6 dark:border-gray-700">
                 <div className="flex items-center justify-between">
                     <div>
                         <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
