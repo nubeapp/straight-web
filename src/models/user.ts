@@ -1,9 +1,10 @@
 import type { Organization } from "./organization";
 
 export interface User {
-    id: string;
+    id?: string;
     name: string;
     surname: string;
-    email: number;
-    organization: Organization;
+    email?: string;
+    organization?: Organization;
+    roles?: string[];
 }

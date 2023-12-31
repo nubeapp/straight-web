@@ -1,16 +1,19 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import LayoutMenu from "../layouts/LayoutMenu.astro";
 ---
 
-<Layout title="Straight">
-    <div class="transition-all relative duration-1000 ">
-        <!-- <PageHeader /> -->
-
-        <div class="relative z-10 px-6 pt-10">
-            <p>Dashboard</p>
+<LayoutMenu title="Straight">
+    <div class="transition-all relative duration-1000">
+        <div class="relative z-10 px-6 pt-10 max-w-[600px]">
+            <p class="text-6xl text-zinc-700 font-medium">
+                The easiest way to 
+                <span
+                    class="text-6xl bg-gradient-to-r from-cyan-500 to-blue-700 inline-block text-transparent bg-clip-text font-black italic pr-2"
+                    >authorize</span>
+                users in your project.
+            </p>
         </div>
     </div>
-</Layout>
+</LayoutMenu>
 
-<style>
-</style>
+<style></style>
