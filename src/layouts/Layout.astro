@@ -1,5 +1,6 @@
 ---
-import AsideMenu from '../components/AsideMenu.astro';
+// import AsideMenu from '../components/AsideMenu.astro';
+import {AsideMenu} from '../components/AsideMenu';
 import { UserCard } from '../components/UserCard';
 import type { User } from '../models/user';
 
@@ -8,6 +9,7 @@ interface Props {
 }
 
 const { title } = Astro.props;
+const pathname = new URL(Astro.request.url).pathname;
 
 const user: User = {
 	name: 'Alvaro',
@@ -34,11 +36,11 @@ const user: User = {
 				</a>
 			</div>
 
-			<aside class="[grid-area:aside] flex-col flex overflow-y-auto">
-				<AsideMenu />
+			<aside class="[grid-area:aside] flex-col flex">
+				<AsideMenu pathname={pathname} client:visible />
 			</aside>
 
-			<header class="[grid-area:header] flex flex-row justify-end min-h-[75px] ml-4 mr-2 mb-2 bg-green-100 p-4">
+			<header class="[grid-area:header] flex flex-row justify-end min-h-[75px] ml-4 mr-2 mb-2 p-4">
 				<UserCard user={user}/>
 			</header>
 

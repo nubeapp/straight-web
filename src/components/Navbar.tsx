@@ -1,7 +1,6 @@
-import { useState } from "react";
 import { NavbarItem } from "./NavbarItem";
 import { GetStartedButton } from "./GetStartedButton";
-export function NavbarTsx({ pathname }: { pathname: string }) {
+export function Navbar({ pathname }: { pathname: string }) {
 
     return (
         <nav className="m-2">

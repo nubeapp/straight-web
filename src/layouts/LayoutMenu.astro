@@ -1,5 +1,5 @@
 ---
-import { NavbarTsx } from '../components/NavbarTsx.tsx';
+import { Navbar } from '../components/Navbar.tsx';
 
 interface Props {
 	title: string;
@@ -20,7 +20,7 @@ const pathname = new URL(Astro.request.url).pathname;
 		<title>{title}</title>
 	</head>
 	<body>
-		<div class="relative h-screen px-2 py-4">
+		<div class="h-screen">
       <div
             aria-hidden="true"
             class="pointer-events-none absolute left-[100px] inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
@@ -35,7 +35,7 @@ const pathname = new URL(Astro.request.url).pathname;
             </div>
         </div>
 			<header>
-        <NavbarTsx pathname={pathname} client:visible />
+        <Navbar pathname={pathname} client:visible />
 			</header>
 			<main>
 				<slot />
